@@ -28,12 +28,14 @@ if 1
 end
 %%%%%% Slope phase
 if rand<params.probSlop
+    disp('Add slop phase');
     ampRange = [0,cols/4.*pi]; % Amplitude range
     comp = getSlop(rows,cols,ampRange);
     phaseComponent = phaseComponent+comp;
 end
 %%%%%% Building phase
 if rand<params.probBuilding
+    disp('Add building phase');
     numRange = [0,20]; % Number of buildings (integer)
     ampRange = [pi/2,4*pi]; % Amplitude range
     comp = getBuilding(rows,cols,numRange,ampRange);
@@ -41,12 +43,14 @@ if rand<params.probBuilding
 end
 %%%%%% Atmospheric turbulence phase, i.e., fractal Perlin noises
 if rand<params.probTurbulence
+    disp('Add atmospheric turbulence');
     ampRange = [0,pi]; % Amplitude range
     zmat = fractalPerlinNoise(rows,cols);
     comp=randR(ampRange)*zmat;
     phaseComponent = phaseComponent+comp;
 end
 
+disp('Add deformation');
 deformComponent = zeros(size(terrainRelated));
 %%%%%% Distorted two-dimensional Gaussian surface
 if rand<params.probDeform
@@ -64,6 +68,7 @@ if rand<params.probDeform
 end
 %%%%%% Deformation caused by earthquakes
 if rand<params.probEarthquake
+    disp('Add earthquake deformation');
     faltParms.rows = rows;
     faltParms.cols = cols;
     faltParms.length=randR([4, faltParms.cols/3]);
@@ -88,6 +93,7 @@ if rand<params.probEarthquake
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+disp('Phase combination');
 %%% Phase combination %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 origin = terrainRelated + phaseComponent+deformComponent;
 origin(isnan(terrainRelated)|isinf(terrainRelated))=0;
@@ -96,6 +102,7 @@ if params.out.origin; outputs.origin = origin; end
 if params.out.deformBbox; outputs.deformBbox = deformBbox; end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+disp('Add noise');
 %%% Complex-valued noise with random amplitude %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if params.noiseType==0
     [waterMask,interf,coherence] = addComplexNoise(...
@@ -180,6 +187,7 @@ noiseAmp = randR([0,1.2])*pi.*(noiseFunnelNorm);
 %%%%%% Completely decorrelated area (water area)
 [m,n]=size(terrainRelated);
 if rand<params.probWater
+    disp("Decorrelated water area");
     maxx=randsrc(1,1,[2, 3, 4, 5, 6]);
     maxy=randsrc(1,1,[2, 3, 4, 5, 6]);
     roriginNorm = fractalPerlinNoise(n,m,1,1,maxx,maxy);

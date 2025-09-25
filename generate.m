@@ -73,6 +73,7 @@ end
 
 %% Sub-functions for parallel processing
 function randomClipping(params,fileNum,LosPhase,fileId,i,saveFolderNames)
+disp('random clipping');
 if fileNum
     [m,n] = size(LosPhase);
     r1 = randi(m-params.sampleSize+1);
@@ -88,10 +89,12 @@ else
     img = zeros(params.sampleSize,params.sampleSize);
 end
 
+disp('generating one');
 outputs = generateOne(img,params);
 
 name = num2str(i,'%05d');
 for idx=1:length(saveFolderNames)
+    disp('saving stuff');
     folderName = saveFolderNames{idx};
     if ~isfield(outputs,folderName);error([folderName ' is not included in the generated data, please check!']);end
     if isnan(outputs.(folderName)); warning(['outputs.' folderName ' is nan, not saved.']);continue;end

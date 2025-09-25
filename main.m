@@ -60,7 +60,9 @@ params.Parallel = 0;
 % if params.Parallel; delete(gcp('nocreate')); end
 
 %% Run
+disp('Starting generation:');
 generate(params);
+disp('Generation done, now showing samples');
 
 %%% Show samples
 %showSamples(params);
