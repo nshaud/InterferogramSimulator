@@ -184,7 +184,8 @@ if rand<params.probWater
     maxy=randsrc(1,1,[2, 3, 4, 5, 6]);
     roriginNorm = fractalPerlinNoise(n,m,1,1,maxx,maxy);
     thres = randR([0,1]);
-    waterMaskGen = imbinarize(roriginNorm,thres);
+    %waterMaskGen = imbinarize(roriginNorm,thres); % FIXME
+    waterMaskGen = roriginNorm > thres; % imbinarize is not available in Octave
 else
     waterMaskGen = zeros(m,n);
 end

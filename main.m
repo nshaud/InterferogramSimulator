@@ -11,6 +11,10 @@
 % @create on:   19-Apr-2022 15:01:24
 % @version:     Matlab 9.11.0.1769968 (R2021b)
 % =========================================================================
+pkg load communications;
+pkg load image;
+pkg load mapping;
+pkg load statistics;
 
 %% Setting parameters
 close all;clear;clc;
@@ -58,5 +62,5 @@ params.Parallel = 0;
 %% Run
 generate(params);
 
-%% Show samples
-showSamples(params);
+%%% Show samples
+%showSamples(params);
