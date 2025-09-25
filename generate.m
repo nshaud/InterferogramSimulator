@@ -100,7 +100,9 @@ for idx=1:length(saveFolderNames)
     if isnan(outputs.(folderName)); warning(['outputs.' folderName ' is nan, not saved.']);continue;end
     if ismember(folderName,{'deformBbox'})
         if~isempty(outputs.(folderName))
-            writematrix(outputs.(folderName),fullfile(params.savePath,folderName,[name,'.txt']),"Delimiter"," ");
+            %writematrix(outputs.(folderName),fullfile(params.savePath,folderName,[name,'.txt']),"Delimiter"," ");
+	    % writematrix does not exist in Octave, use csvwrite instead
+            csvwrite(fullfile(params.savePath,folderName,strcat(name,'.txt')),outputs.(folderName),"Delimiter"," ");
         end
     else
         imwritebin3(outputs.(folderName),fullfile(params.savePath,folderName,[name,'.wzp']));
