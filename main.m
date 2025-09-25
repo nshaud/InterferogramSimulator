@@ -47,8 +47,8 @@ params.probSlop = 0.1;          % Slope phase
 params.probBuilding = 0.2;      % Building phase
 params.probTurbulence = 0.8;    % Atmospheric turbulence phase, i.e., fractal Perlin noises
 params.probDeform = 0.2;        % Distorted two-dimensional Gaussian surface
-params.probEarthquake = 0.2;    % Deformation caused by earthquakes
-params.probWater = 0.5;         % Completely decorrelated area (water area)
+params.probEarthquake = 0.0;    % Deformation caused by earthquakes
+params.probWater = 0.01;        % Completely decorrelated area (water area)
 
 params.noiseType = 0;           % 0 : Deformation-related noise
                                 % 1 : Noise with random signal-to-noise ratio, not recommended
