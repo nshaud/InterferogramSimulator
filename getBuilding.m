@@ -12,9 +12,12 @@
 % @version:     Matlab 9.9.0.1467703 (R2020b)
 % =========================================================================
 
-function img = getBuilding(ro,co,numRange,ampRange)
+function img = getBuilding(ro,co,numRange,ampRange,maxBuildingSize)
 
 %%% params
+if nargin<5
+    maxBuildingSize = 10; % Default size of buildings in pixels
+end
 if nargin<4
     ampRange = [pi/2,4*pi]; % Amplitude range
 end
@@ -36,8 +39,8 @@ maxNum = randi(floor(numRange));
 for i=1:maxNum
     r1 = randi(rows);
     c1 = randi(cols);
-    r2 = r1+round(randR([3,rows/8]))-1;if r2>rows;r2=rows;end
-    c2 = c1+round(randR([3,cols/8]))-1;if c2>cols;c2=cols;end
+    r2 = r1+round(randR([3,maxBuildingSize]))-1;if r2>rows;r2=rows;end
+    c2 = c1+round(randR([3,maxBuildingSize]))-1;if c2>cols;c2=cols;end
     img(r1:r2,c1:c2)=img(r1:r2,c1:c2)+1;
 %     if rand<0.2
 %         img(r1:r2,c1:c2)=img(r1:r2,c1:c2)+getRamp(r2-r1+1,c2-c1+1);
